@@ -1,0 +1,16 @@
+<%- include('partials/header') %>
+<%- include('partials/hero', { title: ekstra.nama }) %>
+
+<section class="section">
+  <div class="container">
+    <div class="ekstra-content">
+      <img src="<%= ekstra.foto %>" alt="<%= ekstra.nama %>" class="ekstra-foto">
+      <div class="ekstra-text">
+        <p><%= ekstra.deskripsi %></p>
+        <a href="/ekstra" class="btn">Lihat Semua Ekstrakurikuler</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

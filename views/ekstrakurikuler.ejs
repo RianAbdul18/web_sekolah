@@ -1,0 +1,36 @@
+<%- include('partials/header') %>
+<h1>Ekstrakurikuler</h1>
+
+<section id="pramuka">
+  <h2>Pramuka</h2>
+  <p>Deskripsi Pramuka.</p>
+</section>
+
+<section id="perisai">
+  <h2>Perisai Diri</h2>
+  <p>Deskripsi Perisai Diri.</p>
+</section>
+
+<section id="voly">
+  <h2>Voly</h2>
+  <p>Deskripsi Voly.</p>
+</section>
+
+<section id="marawis">
+  <h2>Marawis</h2>
+  <p>Deskripsi Marawis.</p>
+</section>
+
+<section id="marching">
+  <h2>Marching Band</h2>
+  <p>Deskripsi Marching Band.</p>
+</section>
+
+<h3>Daftar Ekstra dari DB:</h3>
+<ul>
+  <% ekstra.forEach(e => { %>
+    <li><%= e.nama %> - <%= e.deskripsi %></li>
+  <% }) %>
+</ul>
+
+<%- include('partials/footer') %>

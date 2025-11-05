@@ -1,0 +1,17 @@
+<%- include('partials/header') %>
+<%- include('partials/hero', { title: 'Ekstrakurikuler' }) %>
+
+<section class="section">
+  <div class="container">
+    <div class="grid-4">
+      <% ekstras.forEach(e => { %>
+        <a href="/ekstra/<%= e.id %>" class="item">
+          <img src="<%= e.foto %>" alt="<%= e.nama %>">
+          <h4><%= e.nama %></h4>
+        </a>
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

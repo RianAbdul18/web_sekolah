@@ -1,0 +1,24 @@
+<%- include('partials/header') %>
+<h1>Profil</h1>
+
+<section id="sekolah">
+  <h2>Profil Sekolah</h2>
+  <p>Deskripsi sekolah dummy.</p>
+</section>
+
+<section id="staff">
+  <h2>Staff Pengajar</h2>
+  <ul>
+    <% staff.forEach(s => { %>
+      <li><%= s.nama %> - <%= s.deskripsi %></li>
+    <% }) %>
+  </ul>
+  <p>(Data dari MongoDB, tambah manual via MongoDB shell dulu)</p>
+</section>
+
+<section id="fasilitas">
+  <h2>Fasilitas</h2>
+  <p>Daftar fasilitas dummy.</p>
+</section>
+
+<%- include('partials/footer') %>

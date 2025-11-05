@@ -1,0 +1,26 @@
+[
+    {
+      "id": "voli",
+      "nama": "Bola Voli",
+      "foto": "/img/ekstra-voli.jpg",
+      "deskripsi": "Bola voli merupakan salah satu cabang olahraga yang diminati siswa. Tim voli putra dan putri sering meraih juara di tingkat kecamatan. Latihan rutin setiap Selasa dan Kamis sore di lapangan sekolah."
+    },
+    {
+      "id": "pramuka",
+      "nama": "Pramuka",
+      "foto": "/img/ekstra-pramuka.jpg",
+      "deskripsi": "Kegiatan Pramuka mengajarkan kemandirian, kepemimpinan, dan cinta alam. Setiap tahun mengikuti perkemahan dan lomba tingkat kabupaten."
+    },
+    {
+        "id": "voli",
+        "nama": "Bola Voli",
+        "foto": "/img/ekstra-voli.jpg",
+        "deskripsi": "Bola voli merupakan salah satu cabang olahraga yang diminati siswa. Tim voli putra dan putri sering meraih juara di tingkat kecamatan. Latihan rutin setiap Selasa dan Kamis sore di lapangan sekolah."
+      },
+      {
+        "id": "pramuka",
+        "nama": "Pramuka",
+        "foto": "/img/ekstra-pramuka.jpg",
+        "deskripsi": "Kegiatan Pramuka mengajarkan kemandirian, kepemimpinan, dan cinta alam. Setiap tahun mengikuti perkemahan dan lomba tingkat kabupaten."
+      }
+  ]

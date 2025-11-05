@@ -1,0 +1,390 @@
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: 'Segoe UI', sans-serif; background:#f0f8ff; color:#333; }
+.container { max-width:1200px; margin:auto; padding:0 20px; }
+
+/* HEADER */
+header { background:#0d47a1; color:white; padding:15px 0; }
+header .container { display:flex; align-items:center; justify-content:space-between; }
+header h1 { font-size:1.8rem; }
+header h1 span { font-size:1rem; opacity:0.9; }
+header .logo { height:70px; width: 70px; object-fit: cover; border-radius: 10%; border: 0px; box-shadow: 0 0 1px rgba(0,0,0,0.3); }
+nav ul { display:flex; gap:30px; list-style:none; }
+nav a { color:white; text-decoration:none; font-weight:500; padding:8px 0; transition:0.3s; }
+nav a:hover { color:#4fc3f7; }
+.ppdb { background:#1976d2; padding:10px 20px; border-radius:25px; }
+
+/* DROPDOWN MENU */
+.dropdown {
+  position: relative;
+}
+.dropdown:hover .submenu {
+  display: block;
+}
+.submenu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  min-width: 220px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  padding: 15px 0;
+  z-index: 1000;
+}
+.submenu a {
+  display: block;
+  padding: 12px 20px;
+  color: #0d47a1 !important;
+  font-weight: 500;
+  transition: 0.3s;
+}
+.submenu a:hover {
+  background: #e3f2fd;
+  color: #1976d2 !important;
+  padding-left: 30px;
+}
+
+/* SLIDER */
+.slider { height:400px; overflow:hidden; position:relative; }
+.slider img { width:100%; height:100%; object-fit:cover; position:absolute; opacity:0; transition:1s; }
+.slider img.active { opacity:1; }
+
+/* SAMBUTAN */
+.sambutan { background:white; padding:50px 0; box-shadow:0 2px 10px rgba(0,0,0,0.1); }
+.sambutan .container { display:grid; grid-template-columns:1fr 2fr 1fr; gap:30px; align-items:center; }
+.sambutan img { width:150px; border-radius:50%; border:5px solid #0d47a1; }
+.sambutan h4 { color:#0d47a1; }
+.statistik { text-align:center; }
+.statistik h2 { font-size:2.5rem; color:#1976d2; }
+
+/* BUTTON */
+.btn { background:#1976d2; color:white; padding:10px 25px; border-radius:25px; text-decoration:none; display:inline-block; margin-top:15px; }
+
+/* SECTION UMUM */
+.section {
+    background: white;
+    margin: 50px auto;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    max-width: 1200px;
+  }
+  .section h3 {
+    font-size: 1.8rem;
+    color: #0d47a1;
+    margin-bottom: 10px;
+  }
+  .section p {
+    color: #555;
+    margin-bottom: 20px;
+  }
+  
+  /* TOMBOL SELENGKAPNYA */
+  .btn {
+    background: #1976d2;
+    color: white;
+    padding: 12px 30px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: bold;
+    display: inline-block;
+    transition: 0.3s;
+    
+  }
+  .btn:hover {
+    background: #1565c0;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(25,118,210,0.4);
+  }
+  
+  /* AGENDA */
+  .agenda .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    clear: both;
+    margin-top: 30px;
+  }
+  .agenda .card {
+    background: #e3f2fd;
+    padding: 25px;
+    border-radius: 15px;
+    text-align: center;
+    transition: 0.3s;
+    border: 1px solid #bbdefb;
+  }
+  .agenda .card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  }
+  .agenda .card h4 {
+    color: #0d47a1;
+    margin: 15px 0 10px;
+    font-size: 1.2rem;
+  }
+  .agenda .card p {
+    font-size: 0.95rem;
+    color: #1976d2;
+  }
+  
+  /* STAFF, BERITA, FASILITAS, EKSTRA */
+  .grid-4 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+    margin-top: 30px;
+  }
+  .grid-4 .item {
+    background: #e8f5e8;
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+    transition: 0.3s;
+  }
+  .grid-4 .item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  }
+  .grid-4 img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 15px;
+  }
+  .grid-4 h4 {
+    color: #0d47a1;
+    font-size: 1.1rem;
+  }
+
+  /* JUDUL BIRU BESAR */
+.hero-title {
+  background: #0d47a1;
+  color: white;
+  padding: 60px 0;
+  text-align: center;
+  margin: 30px 0 50px;
+  border-radius: 0 0 30px 30px;
+  box-shadow: 0 10px 20px rgba(13,71,161,0.3);
+}
+.hero-title h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+}
+
+.profil-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  font-size: 1.1rem;
+}
+.profil-item {
+  background: #e3f2fd;
+  padding: 25px;
+  border-radius: 15px;
+  border-left: 6px solid #1976d2;
+}
+.profil-item h3 {
+  color: #0d47a1;
+  margin-bottom: 8px;
+}
+.profil-item p {
+  color: #1565c0;
+  font-weight: 500;
+}
+
+.ekstra-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+}
+.ekstra-foto {
+  width: 100%;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  transition: 0.4s;
+}
+.ekstra-foto:hover {
+  transform: scale(1.03);
+}
+.ekstra-text p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #444;
+  margin-bottom: 30px;
+}
+@media (max-width: 768px) {
+  .ekstra-content { grid-template-columns: 1fr; }
+}
+
+/* GALERI */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 30px;
+}
+.gallery-item {
+  position: relative;
+  border-radius: 15px;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+.gallery-item img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  transition: 0.4s;
+}
+.gallery-item:hover img {
+  transform: scale(1.1);
+}
+.overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(13,71,161,0.8);
+  color: white;
+  padding: 15px;
+  text-align: center;
+  font-weight: bold;
+  transition: 0.3s;
+}
+.gallery-item:hover .overlay {
+  background: rgba(13,71,161,0.95);
+}
+
+/* LIGHTBOX */
+#lightbox {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.9);
+  justify-content: center;
+  align-items: center;
+}
+#lightbox.active { display: flex; }
+#lightbox-img {
+  max-width: 90%;
+  max-height: 80%;
+  border: 8px solid white;
+  border-radius: 15px;
+}
+#caption {
+  color: white;
+  font-size: 1.5rem;
+  margin-top: 20px;
+  text-align: center;
+}
+.close {
+  position: absolute;
+  top: 30px;
+  right: 40px;
+  font-size: 3rem;
+  color: white;
+  cursor: pointer;
+}
+
+.kontak-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+  margin-top: 30px;
+}
+.form-kontak, .info-kontak {
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+.form-kontak h3, .info-kontak h3 {
+  color: #0d47a1;
+  margin-bottom: 20px;
+}
+.form-kontak input,
+.form-kontak textarea {
+  width: 100%;
+  padding: 12px 15px;
+  margin: 10px 0;
+  border: 2px solid #bbdefb;
+  border-radius: 10px;
+  font-size: 1rem;
+}
+.form-kontak input:focus,
+.form-kontak textarea:focus {
+  border-color: #1976d2;
+  outline: none;
+}
+.info-kontak p {
+  margin: 15px 0;
+  line-height: 1.7;
+  color: #444;
+}
+@media (max-width: 768px) {
+  .kontak-grid { grid-template-columns: 1fr; }
+}
+
+.ppdb-form {
+  background: #e3f2fd;
+  padding: 40px;
+  border-radius: 25px;
+  box-shadow: 0 10px 30px rgba(13,71,161,0.2);
+}
+.progress-bar {
+  height: 8px;
+  background: #bbdefb;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 30px;
+}
+.progress {
+  width: 16.66%;
+  height: 100%;
+  background: #1976d2;
+  transition: width 0.5s;
+}
+.step {
+  display: none;
+}
+.step.active { display: block; }
+.step h3 {
+  color: #0d47a1;
+  margin-bottom: 25px;
+  font-size: 1.5rem;
+}
+.step input, .step textarea, .step select {
+  width: 100%;
+  padding: 14px;
+  margin: 12px 0;
+  border: 2px solid #bbdefb;
+  border-radius: 12px;
+  font-size: 1rem;
+}
+.step input:focus, .step textarea:focus {
+  border-color: #1976d2;
+}
+.review {
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  margin: 20px 0;
+  line-height: 2;
+  font-size: 1.1rem;
+}
+
+/* FOOTER */
+footer { background:#0d47a1; color:white; padding:50px 0 20px; margin-top:50px; }
+footer .container { display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:30px; }
+footer img { height:80px; }
+.sosmed span { display:inline-block; margin:5px; padding:8px; background:#1976d2; border-radius:5px; }
+footer a { color:#bbdefb; }
+footer a:hover { color:white; }
+.copyright { text-align:center; padding:20px; background:#0b3a82; margin-top:30px; font-size:0.9rem; }

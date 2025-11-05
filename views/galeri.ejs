@@ -1,0 +1,46 @@
+<%- include('partials/header') %>
+<%- include('partials/hero', { title: 'Galeri Kegiatan' }) %>
+
+<section class="section">
+  <div class="container">
+    <p class="center">Dokumentasi kegiatan siswa dan prestasi sekolah</p>
+    
+    <div class="gallery-grid">
+      <!-- FOTO 1 -->
+      <div class="gallery-item" onclick="openLightbox('/img/galeri1.jpg', 'Wisuda Kelas 9')">
+        <img src="/img/galeri1.jpg" alt="Wisuda">
+        <div class="overlay">Wisuda Kelas 9</div>
+      </div>
+      
+      <!-- FOTO 2–12 (COPY-PASTE 11 KALI) -->
+      <div class="gallery-item" onclick="openLightbox('/img/galeri2.jpg', 'Lomba MTQ')">
+        <img src="/img/galeri2.jpg" alt="MTQ">
+        <div class="overlay">Lomba MTQ</div>
+      </div>
+      
+      <!-- Tambah sampai 12 foto -->
+    </div>
+  </div>
+</section>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" onclick="closeLightbox()">
+  <span class="close">×</span>
+  <img id="lightbox-img" src="" alt="">
+  <div id="caption"></div>
+</div>
+
+<div class="gallery-item" onclick="openLightbox('/img/galeri2.jpg', 'Lomba MTQ')">
+  <img src="/img/galeri2.jpg" alt="MTQ">
+  <div class="overlay">Lomba MTQ</div>
+</div>
+<div class="gallery-item" onclick="openLightbox('/img/galeri2.jpg', 'Lomba MTQ')">
+  <img src="/img/galeri2.jpg" alt="MTQ">
+  <div class="overlay">Lomba MTQ</div>
+</div>
+<div class="gallery-item" onclick="openLightbox('/img/galeri2.jpg', 'Lomba MTQ')">
+  <img src="/img/galeri2.jpg" alt="MTQ">
+  <div class="overlay">Lomba MTQ</div>
+</div>
+
+<%- include('partials/footer') %>

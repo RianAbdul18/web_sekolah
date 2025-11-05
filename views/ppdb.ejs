@@ -1,0 +1,81 @@
+<%- include('partials/header') %>
+<%- include('partials/hero', { title: 'PPDB Online 2025/2026' }) %>
+
+<section class="section">
+  <div class="container">
+    <div class="ppdb-form">
+      <div class="progress-bar">
+        <div class="progress"></div>
+      </div>
+      <div class="steps">
+        <!-- SESI 1: DATA DIRI -->
+        <div class="step active">
+          <h3>1. Data Diri Calon Siswa</h3>
+          <input type="text" placeholder="Nama Lengkap *" data-name="nama" required>
+          <input type="text" placeholder="NISN" data-name="nisn">
+          <input type="text" placeholder="NIK" data-name="nik" required>
+          <select data-name="jenis_kelamin" required>
+            <option value="">Jenis Kelamin *</option>
+            <option>Laki-laki</option>
+            <option>Perempuan</option>
+          </select>
+          <input type="text" placeholder="Tempat Lahir *" data-name="tempat_lahir" required>
+          <input type="date" placeholder="Tanggal Lahir *" data-name="tgl_lahir" required>
+          <button type="button" class="btn next">Selanjutnya →</button>
+        </div>
+
+        <!-- SESI 2: ALAMAT -->
+        <div class="step">
+          <h3>2. Alamat Lengkap</h3>
+          <textarea placeholder="Alamat Rumah *" data-name="alamat" required></textarea>
+          <input type="text" placeholder="RT / RW" data-name="rt_rw">
+          <input type="text" placeholder="Desa / Kelurahan *" data-name="desa" required>
+          <input type="text" placeholder="Kecamatan *" data-name="kecamatan" required>
+          <input type="text" placeholder="Kabupaten / Kota *" data-name="kabupaten" required>
+          <button type="button" class="btn prev">← Kembali</button>
+          <button type="button" class="btn next">Selanjutnya →</button>
+        </div>
+
+        <!-- SESI 3: ORANG TUA -->
+        <div class="step">
+          <h3>3. Data Orang Tua / Wali</h3>
+          <input type="text" placeholder="Nama Ayah *" data-name="nama_ayah" required>
+          <input type="text" placeholder="Nama Ibu *" data-name="nama_ibu" required>
+          <input type="text" placeholder="Pekerjaan Ayah" data-name="pekerjaan_ayah">
+          <input type="text" placeholder="Pekerjaan Ibu" data-name="pekerjaan_ibu">
+          <input type="text" placeholder="No. WA Ortu *" data-name="wa_ortu" required>
+          <button type="button" class="btn prev">← Kembali</button>
+          <button type="button" class="btn next">Selanjutnya →</button>
+        </div>
+
+        <!-- SESI 4: ASAL SEKOLAH -->
+        <div class="step">
+          <h3>4. Asal Sekolah</h3>
+          <input type="text" placeholder="Nama SD / MI *" data-name="asal_sekolah" required>
+          <input type="text" placeholder="Alamat SD / MI" data-name="alamat_sekolah">
+          <button type="button" class="btn prev">← Kembali</button>
+          <button type="button" class="btn next">Selanjutnya →</button>
+        </div>
+
+        <!-- SESI 5: DOKUMEN -->
+        <div class="step">
+          <h3>5. Unggah Dokumen (Opsional)</h3>
+          <p><em>Foto / scan bisa dikirim via WA nanti</em></p>
+          <button type="button" class="btn prev">← Kembali</button>
+          <button type="button" class="btn next">Selanjutnya →</button>
+        </div>
+
+        <!-- SESI 6: KIRIM -->
+        <div class="step">
+          <h3>6. Kirim Pendaftaran</h3>
+          <div class="review"></div>
+          <button type="button" class="btn prev">← Kembali</button>
+          <button type="button" class="btn kirim">Kirim via WhatsApp</button>
+          <p id="notif"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

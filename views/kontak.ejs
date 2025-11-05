@@ -1,0 +1,31 @@
+<%- include('partials/header') %>
+<%- include('partials/hero', { title: 'Hubungi Kami' }) %>
+
+<section class="section">
+  <div class="container">
+    <div class="kontak-grid">
+      <!-- FORM -->
+      <div class="form-kontak">
+        <h3>Kirim Pesan</h3>
+        <form id="formWa">
+          <input type="text" id="nama" placeholder="Nama Lengkap" required>
+          <input type="email" id="email" placeholder="Email (opsional)">
+          <textarea id="pesan" rows="5" placeholder="Tulis pesan Anda..." required></textarea>
+          <button type="submit" class="btn">Kirim via WhatsApp</button>
+        </form>
+        <p id="notif" style="margin-top:15px; color:green; font-weight:bold;"></p>
+      </div>
+
+      <!-- INFO SEKOLAH -->
+      <div class="info-kontak">
+        <h3>Informasi Kontak</h3>
+        <p><strong>Alamat:</strong><br>Jl. Raya Cukangbungur No. 123, Kec. Cukangbungur</p>
+        <p><strong>Telepon:</strong><br>0859-7378-1774</p>
+        <p><strong>Email:</strong><br>info@mtsdarulfalah.sch.id</p>
+        <p><strong>Jam Operasional:</strong><br>Senin–Jumat: 07:00–15:00</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

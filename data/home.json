@@ -1,0 +1,33 @@
+{   
+    "slider": [
+      "/img/kepala-sekolah.jpg",
+      "/img/slide2.jpg",
+      "/img/slide3.jpg"
+    ],
+    "sambutan": {
+      "nama": "Nuryadin, S.Pd.I.,M.Pd",
+      "foto": "/img/kepala-sekolah.jpg",
+      "pesan": "Assalamu'alaikum warahmatullahi wabarakatuh, Segala puji kita panjatkan ke hadirat Allah SWT atas segala limpahan rahmat, taufiq, dan hidayah-Nya."
+    },
+    "agenda": [
+      { "judul": "Ulangan Tengah Semester", "tanggal": "23 Desember 2025" },
+      { "judul": "Ulangan Akhir Semester", "tanggal": "20 Juni 2026" },
+      { "judul": "Acara Perpisahan Kelas 9", "tanggal": "10 September 2026" }
+    ],
+    "staff": [
+      { "nama": "Ismail, S.Pd.I", "mapel": "TIK", "foto": "/img/staff1.jpg" },
+      { "nama": "Tita Rosita, S.Pd.I", "mapel": "SKI, PPKn", "foto": "/img/staff2.jpg" }
+    ],
+    "berita": [
+      { "judul": "Siswa Juara 1 Provinsi", "foto": "/img/berita1.jpg" },
+      { "judul": "Senam Pagi Bersama", "foto": "/img/berita2.jpg" }
+    ],
+    "fasilitas": [
+      { "nama": "Ruang Kelas", "foto": "/img/kelas.jpg" },
+      { "nama": "Perpustakaan", "foto": "/img/perpus.jpg" }
+    ],
+    "ekstra": [
+      { "nama": "Pramuka", "foto": "/img/pramuka.jpg" },
+      { "nama": "Perisai Diri", "foto": "/img/perisai.jpg" }
+    ]
+  }
