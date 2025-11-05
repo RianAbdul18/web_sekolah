@@ -3,23 +3,31 @@ body { font-family: 'Segoe UI', sans-serif; background:#f0f8ff; color:#333; }
 .container { max-width:1200px; margin:auto; padding:0 20px; }
 
 /* HEADER */
-header { background:#0d47a1; color:white; padding:15px 0; }
+header { background:#ffffff; color:rgb(52, 7, 255); padding:15px 0; }
 header .container { display:flex; align-items:center; justify-content:space-between; }
-header h1 { font-size:1.8rem; }
-header h1 span { font-size:1rem; opacity:0.9; }
-header .logo { height:70px; width: 70px; object-fit: cover; border-radius: 10%; border: 0px; box-shadow: 0 0 1px rgba(0,0,0,0.3); }
-nav ul { display:flex; gap:30px; list-style:none; }
-nav a { color:white; text-decoration:none; font-weight:500; padding:8px 0; transition:0.3s; }
+header h1 { font-size:2rem; margin-left: -85px;}
+header h1 span { padding-top: 10px; font-size:1.6rem; opacity:0.9; }
+header .logo { height:70px; width: 70px; object-fit: cover; border-radius: 10%; border: 0px; box-shadow: 0 0 1px rgb(255, 254, 254); }
+nav ul { display:flex; gap:33px; list-style:none; }
+nav a { font-size: 18px; color:rgb(0, 0, 0); text-decoration:none; font-weight:600; padding:8px 0; transition:0.3s; }
 nav a:hover { color:#4fc3f7; }
 .ppdb { background:#1976d2; padding:10px 20px; border-radius:25px; }
 
-/* DROPDOWN MENU */
+
+/* SUBMENU KLIK + ANIMASI */
 .dropdown {
   position: relative;
 }
-.dropdown:hover .submenu {
-  display: block;
+.dropdown > a::after {
+  content: " ▼";
+  font-size: 0.7rem;
+  margin-left: 5px;
 }
+.dropdown.active > a::after {
+  content: " ▲";
+}
+
+/* Submenu */
 .submenu {
   display: none;
   position: absolute;
@@ -28,14 +36,25 @@ nav a:hover { color:#4fc3f7; }
   transform: translateX(-50%);
   background: white;
   min-width: 220px;
-  border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  border-radius: 15px;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.25);
   padding: 15px 0;
   z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.35s ease;
 }
+.dropdown.active .submenu {
+  display: block;
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(10px);
+}
+
+/* Item submenu */
 .submenu a {
   display: block;
-  padding: 12px 20px;
+  padding: 12px 25px;
   color: #0d47a1 !important;
   font-weight: 500;
   transition: 0.3s;
@@ -43,7 +62,7 @@ nav a:hover { color:#4fc3f7; }
 .submenu a:hover {
   background: #e3f2fd;
   color: #1976d2 !important;
-  padding-left: 30px;
+  padding-left: 35px;
 }
 
 /* SLIDER */
