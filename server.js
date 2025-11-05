@@ -41,6 +41,30 @@ app.get('/ekstra', (req, res) => {
   res.render('ekstra-list', { ekstras: ekstraData });
 });
 
+app.get('/galeri', (req, res) => {
+  res.render('galeri');
+});
+
+app.get('/kontak', (req, res) => {
+  res.render('kontak');
+});
+
+app.get('/ppdb', (req, res) => {
+  res.render('ppdb');
+});
+
+const beritaData = require('./data/berita.json');
+
+app.get('/berita', (req, res) => {
+  res.render('berita', { beritas: beritaData });
+});
+
+app.get('/berita/:id', (req, res) => {
+  const berita = beritaData.find(b => b.id == req.params.id);
+  if (!berita) return res.status(404).send('Not found');
+  res.render('berita-detail', { berita });
+});
+
 app.listen(PORT, () => {
   console.log(`Website jalan di http://localhost:${PORT}`);
 });
