@@ -1,0 +1,10 @@
+<%- include('../partials/header') %>
+<h2><%= action === 'create' ? 'Tambah' : 'Edit' %> Submenu</h2>
+<form method="POST" action="<%= action === 'create' ? '/admin/create' : '/admin/update/' + profil._id %>">
+  <input type="text" name="nama" placeholder="Nama Submenu" value="<%= profil ? profil.nama : '' %>" required>
+  <input type="text" name="tipe" placeholder="Tipe (e.g. staff)" value="<%= profil ? profil.tipe : '' %>" required>
+  <textarea name="isi" placeholder="Isi Lengkap"><%= profil ? profil.isi : '' %></textarea>
+  <input type="text" name="foto" placeholder="Path Foto" value="<%= profil ? profil.foto : '' %>">
+  <button type="submit">Simpan</button>
+</form>
+<%- include('../partials/footer') %>

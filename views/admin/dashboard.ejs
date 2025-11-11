@@ -1,0 +1,22 @@
+<%- include('../partials/header') %>
+<h2>Dashboard Admin - Kelola Profil</h2>
+<a href="/admin/create" class="btn">Tambah Submenu</a>
+<table>
+  <thead><tr><th>Nama</th><th>Tipe</th><th>Aksi</th></tr></thead>
+  <tbody>
+    <% profils.forEach(p => { %>
+      <tr>
+        <td><%= p.nama %></td>
+        <td><%= p.tipe %></td>
+        <td>
+          <a href="/admin/edit/<%= p._id %>">Edit</a>
+          <form method="POST" action="/admin/delete/<%= p._id %>" style="display:inline;">
+            <button type="submit">Delete</button>
+          </form>
+        </td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>
+<a href="/admin/logout">Logout</a>
+<%- include('../partials/footer') %>
