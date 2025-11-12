@@ -1,22 +1,104 @@
-<%- include('../partials/header') %>
-<h2>Dashboard Admin - Kelola Profil</h2>
-<a href="/admin/create" class="btn">Tambah Submenu</a>
-<table>
-  <thead><tr><th>Nama</th><th>Tipe</th><th>Aksi</th></tr></thead>
-  <tbody>
-    <% profils.forEach(p => { %>
-      <tr>
-        <td><%= p.nama %></td>
-        <td><%= p.tipe %></td>
-        <td>
-          <a href="/admin/edit/<%= p._id %>">Edit</a>
-          <form method="POST" action="/admin/delete/<%= p._id %>" style="display:inline;">
-            <button type="submit">Delete</button>
-          </form>
-        </td>
-      </tr>
-    <% }) %>
-  </tbody>
-</table>
-<a href="/admin/logout">Logout</a>
-<%- include('../partials/footer') %>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard Admin - MTS Darul Falah</title>
+  <link rel="stylesheet" href="/css/admin.css" />
+  <meta name="robots" content="noindex, nofollow" />
+</head>
+<body>
+  <div class="admin-container">
+    <!-- Header -->
+    <div class="admin-header">
+      <h1>Dashboard Admin</h1>
+      <p>
+        Selamat datang, <strong>Admin</strong> | 
+        <a href="/admin/logout">Logout</a>
+      </p>
+    </div>
+
+    <!-- Tombol Tambah -->
+    <div style="margin-bottom: 20px;">
+      <a href="/admin/create" class="btn">+ Tambah Data Profil</a>
+      <a href="/admin/berita" class="btn" style="margin-left: 10px; background: #27ae60;">Kelola Berita</a>
+    </div>
+
+    <!-- Tabel Data -->
+    <% if (profils.length === 0) { %>
+      <div class="alert alert-info">
+        Belum ada data profil. <a href="/admin/create">Tambah sekarang</a>.
+      </div>
+    <% } else { %>
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>Nama</th>
+              <th>Tipe</th>
+              <th>Foto</th>
+              <th>Urutan</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% profils.forEach((p, i) => { %>
+              <tr>
+                <td><%= i + 1 %></td>
+                <td><strong><%= p.nama %></strong></td>
+                <td>
+                  <span class="badge <%= 
+                    p.tipe === 'sekolah' ? 'badge-primary' : 
+                    p.tipe === 'staff' ? 'badge-success' : 
+                    p.tipe === 'fasilitas' ? 'badge-info' : 'badge-secondary'
+                  %>">
+                    <%= p.tipe.replace(/-/g, ' ').toUpperCase() %>
+                  </span>
+                </td>
+                <td>
+                  <% if (p.foto) { %>
+                    <img src="<%= p.foto %>" alt="<%= p.nama %>" class="thumbnail">
+                  <% } else { %>
+                    <em class="text-muted">Tanpa foto</em>
+                  <% } %>
+                </td>
+                <td><%= p.urutan %></td>
+                <td class="actions">
+                  <a href="/admin/edit/<%= p._id %>" class="btn btn-sm" title="Edit">
+                    Edit
+                  </a>
+                  <form action="/admin/delete/<%= p._id %>" method="POST" style="display:inline;" onsubmit="return confirm('Yakin ingin menghapus data ini?')">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                    <button type="submit" class="btn btn-danger btn-sm" title="Hapus">
+                      Hapus
+                    </button>
+                  </form>
+                </td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    <% } %>
+
+    <!-- Footer -->
+    <div style="margin-top: 40px; text-align: center; color: #7f8c8d; font-size: 14px;">
+      <p>&copy; <%= new Date().getFullYear() %> MTS Darul Falah. Semua hak cipta dilindungi.</p>
+    </div>
+  </div>
+
+  <style>
+    .table-responsive { overflow-x: auto; }
+    .thumbnail { width: 50px; height: 50px; object-fit: cover; border-radius: 6px; }
+    .badge {
+      padding: 4px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; color: white;
+    }
+    .badge-primary { background: #3498db; }
+    .badge-success { background: #27ae60; }
+    .badge-info { background: #17a2b8; }
+    .badge-secondary { background: #6c757d; }
+    .alert-info { background: #d1ecf1; color: #0c5460; padding: 12px; border-radius: 8px; border: 1px solid #b6d4fe; }
+  </style>
+</body>
+</html>

@@ -1,28 +1,88 @@
 <%- include('partials/header') %>
-<%- include('partials/hero', { title: 'Fasilitas Sekolah' }) %>
 
-<section class="section">
+<section class="fasilitas section">
   <div class="container">
-    <p>Sarana penunjang pembelajaran yang lengkap</p>
-    <div class="grid-4">
-      <div class="item">
-        <img src="/img/fas1.jpg" alt="Lab Komputer">
-        <h4>Laboratorium Komputer</h4>
-      </div>
-      <div class="item">
-        <img src="/img/fas2.jpg" alt="Perpustakaan">
-        <h4>Perpustakaan Digital</h4>
-      </div>
-      <div class="item">
-        <img src="/img/fas3.jpg" alt="Lapangan">
-        <h4>Lapangan Olahraga</h4>
-      </div>
-      <div class="item">
-        <img src="/img/fas4.jpg" alt="Mushola">
-        <h4>Mushola Nyaman</h4>
-      </div>
+    <h1 class="section-title">Fasilitas Sekolah</h1>
+    <p class="text-center mb-5">Sarana dan prasarana lengkap untuk mendukung proses belajar mengajar</p>
+
+    <div class="row">
+      <% profils.sort((a,b) => a.urutan - b.urutan).forEach(p => { %>
+        <div class="col-md-6 col-lg-4 mb-4">
+          <div class="fasilitas-card">
+            <div class="fasilitas-image">
+              <% if (p.foto) { %>
+                <img src="<%= p.foto %>" alt="<%= p.nama %>" class="img-fluid">
+              <% } else { %>
+                <div class="placeholder">
+                  <i class="fas fa-school fa-3x"></i>
+                </div>
+              <% } %>
+            </div>
+            <div class="fasilitas-info">
+              <h3><%= p.nama %></h3>
+              <p><%= p.deskripsi %></p>
+            </div>
+          </div>
+        </div>
+      <% }) %>
     </div>
   </div>
 </section>
 
 <%- include('partials/footer') %>
+
+<style>
+  .fasilitas-card {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    transition: all 0.3s;
+    height: 100%;
+  }
+  
+  .fasilitas-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+  }
+  
+  .fasilitas-image {
+    height: 180px;
+    overflow: hidden;
+  }
+  
+  .fasilitas-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s;
+  }
+  
+  .fasilitas-card:hover .fasilitas-image img {
+    transform: scale(1.1);
+  }
+  
+  .placeholder {
+    height: 100%;
+    background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+  }
+  
+  .fasilitas-info {
+    padding: 1.5rem;
+  }
+  
+  .fasilitas-info h3 {
+    margin: 0 0 0.75rem;
+    font-size: 1.3rem;
+    color: #2d3748;
+  }
+  
+  .fasilitas-info p {
+    color: #718096;
+    font-size: 0.95rem;
+  }
+</style>

@@ -2,97 +2,97 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const session = require('express-session');
+const MongoStore = require('connect-mongo');
+const csrf = require('csurf');
+const helmet = require('helmet');
 const path = require('path');
-
-const mainRoutes = require('./routes/mainRoutes');  // Kalau ada
-const adminRoutes = require('./routes/admin');  // Baru
+const multer = require('multer');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
 
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.urlencoded({ extended: true }));
+// === SECURITY ===
+app.use(helmet({
+  contentSecurityPolicy: false,
+  crossOriginEmbedderPolicy: false
+}));
+app.disable('x-powered-by');
 
-// Session
+// === SESSION ===
+
+
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
-  cookie: { secure: false }  // true kalau HTTPS
+  store: MongoStore.create({
+    mongoUrl: process.env.MONGO_URI,
+    collectionName: 'sessions'
+  }),
+  cookie: {
+    maxAge: 1000 * 60 * 60 * 24,
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production'
+  }
 }));
 
-// MongoDB (kompatibel versi lama)
+// === CSRF PROTECTION ===
+const csrfProtection = csrf({ cookie: false });
+
+// === DATABASE ===
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
-}).then(() => console.log('MongoDB connected'))
-  .catch(err => console.error('MongoDB error:', err));
+})
+  .then(() => console.log('Connected to MongoDB'))
+  .catch(err => {
+    console.error('MongoDB connection failed:', err);
+    process.exit(1);
+  });
 
-app.use('/', mainRoutes);
-app.use('/admin', adminRoutes);
+// === MIDDLEWARE ===
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+app.use(express.static(path.join(__dirname, 'public'), {
+  maxAge: '1d'
+}));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
-app.get('/', (req, res) => {
-  const data = require('./data/home.json');
-  res.render('beranda', { data });
+// === MULTER (UPLOAD FOTO) ===
+const upload = multer({
+  dest: 'public/uploads/',
+  limits: { fileSize: 5 * 1024 * 1024 }, // 5MB
+  fileFilter: (req, file, cb) => {
+    if (!file.mimetype.startsWith('image/')) {
+      return cb(new Error('Hanya file gambar yang diperbolehkan!'));
+    }
+    cb(null, true);
+  }
 });
 
-// ROUTE PROFIL (SEMUA SUBMENU)
-const profilPages = {
-  sekolah: 'Profil Sekolah',
-  sejarah: 'Sejarah Singkat',
-  staff: 'Staf Pengajar',
-  'visi-misi': 'Visi, Misi & Tujuan',
-  'tenaga-kependidikan': 'Staf Tenaga Kependidikan',
-  fasilitas: 'Fasilitas'
-};
+// === ROUTES ===
+app.use('/', require('./routes/mainRoutes'));
+app.use('/admin', csrfProtection, upload.single('foto'), require('./routes/admin'));
+app.use('/admin', csrfProtection, require('./routes/adminBerita'));
 
-app.get('/profil/:page', (req, res) => {
-  const page = req.params.page;
-  const title = profilPages[page];
-  if (!title) return res.status(404).send('Halaman tidak ditemukan');
-  res.render(`profil-${page}`, { title });
+// === ERROR HANDLER ===
+app.use((err, req, res, next) => {
+  console.error('Server Error:', err);
+  if (err.code === 'EBADCSRFTOKEN') {
+    return res.status(403).send('Invalid CSRF token. Silakan refresh halaman.');
+  }
+  if (err.message.includes('file')) {
+    return res.status(400).send(err.message);
+  }
+  res.status(500).send('Terjadi kesalahan server. Silakan coba lagi nanti.');
 });
 
-// ROUTE EKSTRAKURIKULER
-const ekstraData = require('./data/ekstra.json');
-
-app.get('/ekstra/:id', (req, res) => {
-  const ekstra = ekstraData.find(e => e.id === req.params.id);
-  if (!ekstra) return res.status(404).send('Tidak ditemukan');
-  res.render('ekstra-detail', { ekstra });
+// === 404 HANDLER ===
+app.use((req, res) => {
+  res.status(404).render('404', { title: 'Halaman Tidak Ditemukan' });
 });
 
-app.get('/ekstra', (req, res) => {
-  res.render('ekstra-list', { ekstras: ekstraData });
-});
-
-app.get('/galeri', (req, res) => {
-  res.render('galeri');
-});
-
-app.get('/kontak', (req, res) => {
-  res.render('kontak');
-});
-
-app.get('/ppdb', (req, res) => {
-  res.render('ppdb');
-});
-
-const beritaData = require('./data/berita.json');
-
-app.get('/berita', (req, res) => {
-  res.render('berita', { beritas: beritaData });
-});
-
-app.get('/berita/:id', (req, res) => {
-  const berita = beritaData.find(b => b.id == req.params.id);
-  if (!berita) return res.status(404).send('Not found');
-  res.render('berita-detail', { berita });
-});
-
+const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
-  console.log(`Website jalan di http://localhost:${PORT}`);
+  console.log(`Server berjalan di http://localhost:${PORT}`);
 });
-

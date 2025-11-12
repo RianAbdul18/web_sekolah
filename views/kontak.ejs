@@ -1,31 +1,116 @@
 <%- include('partials/header') %>
-<%- include('partials/hero', { title: 'Hubungi Kami' }) %>
 
-<section class="section">
+<section class="kontak section">
   <div class="container">
-    <div class="kontak-grid">
-      <!-- FORM -->
-      <div class="form-kontak">
-        <h3>Kirim Pesan</h3>
-        <form id="formWa">
-          <input type="text" id="nama" placeholder="Nama Lengkap" required>
-          <input type="email" id="email" placeholder="Email (opsional)">
-          <textarea id="pesan" rows="5" placeholder="Tulis pesan Anda..." required></textarea>
-          <button type="submit" class="btn">Kirim via WhatsApp</button>
-        </form>
-        <p id="notif" style="margin-top:15px; color:green; font-weight:bold;"></p>
+    <h1 class="section-title">Hubungi Kami</h1>
+
+    <div class="row">
+      <div class="col-lg-6 mb-4">
+        <div class="contact-info">
+          <h3>Informasi Kontak</h3>
+          <ul class="contact-list">
+            <li>
+              <i class="fas fa-map-marker-alt"></i>
+              <div>
+                <strong>Alamat</strong><br>
+                Jl. Contoh No. 123, Kel. Example, Kec. Sample, Kota
+              </div>
+            </li>
+            <li>
+              <i class="fas fa-phone"></i>
+              <div>
+                <strong>Telepon</strong><br>
+                (021) 123-4567
+              </div>
+            </li>
+            <li>
+              <i class="fas fa-envelope"></i>
+              <div>
+                <strong>Email</strong><br>
+                info@mtsdarulfalah.sch.id
+              </div>
+            </li>
+            <li>
+              <i class="fas fa-clock"></i>
+              <div>
+                <strong>Jam Kerja</strong><br>
+                Senin - Jumat: 07:00 - 15:00<br>
+                Sabtu: 07:00 - 12:00
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="social-contact mt-4">
+          <h4>Ikuti Kami</h4>
+          <div class="social-links">
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
       </div>
 
-      <!-- INFO SEKOLAH -->
-      <div class="info-kontak">
-        <h3>Informasi Kontak</h3>
-        <p><strong>Alamat:</strong><br>Jl. Raya Cukangbungur No. 123, Kec. Cukangbungur</p>
-        <p><strong>Telepon:</strong><br>0859-7378-1774</p>
-        <p><strong>Email:</strong><br>info@mtsdarulfalah.sch.id</p>
-        <p><strong>Jam Operasional:</strong><br>Senin–Jumat: 07:00–15:00</p>
+      <div class="col-lg-6">
+        <div class="contact-map">
+          <iframe 
+            src="https://www.google.com/maps/embed?pb=..." 
+            width="100%" 
+            height="400" 
+            style="border:0;" 
+            allowfullscreen="" 
+            loading="lazy">
+          </iframe>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
 <%- include('partials/footer') %>
+
+<style>
+  .contact-info {
+    background: white;
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+  }
+  
+  .contact-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .contact-list li {
+    display: flex;
+    margin-bottom: 1.5rem;
+    align-items: flex-start;
+  }
+  
+  .contact-list i {
+    font-size: 1.5rem;
+    color: #3498db;
+    margin-right: 1rem;
+    width: 30px;
+  }
+  
+  .social-links a {
+    display: inline-block;
+    margin-right: 1rem;
+    font-size: 1.8rem;
+    color: #3498db;
+    transition: 0.3s;
+  }
+  
+  .social-links a:hover {
+    color: #2980b9;
+    transform: translateY(-3px);
+  }
+  
+  .contact-map {
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+  }
+</style>

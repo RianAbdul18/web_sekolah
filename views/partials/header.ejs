@@ -3,47 +3,51 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>MTs Darul Falah</title>
-  <link rel="stylesheet" href="/css/style.css" />
+  <title><%= typeof title !== 'undefined' ? title + ' - ' : '' %>MTS Darul Falah</title>
+  <meta name="description" content="Website Resmi MTS Darul Falah - Sekolah Berkualitas Berakhlak Mulia" />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="MTS Darul Falah" />
+  <link rel="icon" href="/img/favicon.ico" type="image/x-icon" />
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="/css/style.css?v=<%= Date.now() %>" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  
+  <!-- CSRF Token untuk JS -->
+  <meta name="csrf-token" content="<%= typeof csrfToken !== 'undefined' ? csrfToken : '' %>">
 </head>
 <body>
-<header>
-  <div class="container">
-    <img src="/img/logoo.jpg" alt="Logo" class="logo">
-    <h1>MTs Darul Falah<br><span>Cukangbungur</span></h1>
-    <nav>
-      <ul>
-        <li><a href="/">Beranda</a></li>
-        
-        <li class="dropdown">
-          <a href="#">Profil</a>
-          <div class="submenu">
-            <a href="/profil/sekolah">Profil Sekolah</a>
-            <a href="/profil/sejarah">Sejarah Singkat</a>
-            <a href="/profil/staff">Staf Pengajar</a>
-            <a href="/profil/visi-misi">Visi, Misi</a>
-            <a href="/profil/tenaga-kependidikan">Staf Tenaga Kependidikan</a>
-            <a href="/profil/fasilitas">Fasilitas</a>
-          </div>
-        </li>
-        
-        <li class="dropdown">
-          <a href="#">Ekstrakurikuler </a>
-          <div class="submenu">
-            <a href="/ekstra/voli">Bola Voli</a>
-            <a href="/ekstra/pramuka">Pramuka</a>
-            <a href="/ekstra/marching">Marching Band</a>
-            <a href="/ekstra/marawis">Marawis</a>
-            <a href="/ekstra/rebana">Rebana</a>
-            <a href="/ekstra/perisai-diri">Perisai Diri</a>
-          </div>
-        </li>
-
-        <li><a href="/galeri">Galeri</a></li>
-        <li><a href="/berita">Informasi</a></li>
-        <li><a href="/kontak">Kontak</a></li>
-        <li><a href="/ppdb" class="ppdb">PPDB</a></li>
-      </ul>
-    </nav>
-  </div>
-</header>
+  <header class="main-header">
+    <div class="container">
+      <div class="logo">
+        <a href="/">
+          <img src="/img/logo.png" alt="Logo MTS Darul Falah" class="logo-img">
+          <span>MTS DARUL FALAH</span>
+        </a>
+      </div>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="/" class="<%= path === '/' ? 'active' : '' %>">Beranda</a></li>
+          <li class="dropdown">
+            <a href="/profil-sekolah" class="<%= path && path.includes('profil') ? 'active' : '' %>">Profil</a>
+            <ul class="dropdown-menu">
+              <li><a href="/profil-sekolah">Profil Sekolah</a></li>
+              <li><a href="/profil-sejarah">Sejarah</a></li>
+              <li><a href="/profil-visi-misi">Visi Misi</a></li>
+              <li><a href="/profil-staff">Staff</a></li>
+              <li><a href="/profil-tenaga-kependidikan">Tenaga Kependidikan</a></li>
+              <li><a href="/profil-fasilitas">Fasilitas</a></li>
+            </ul>
+          </li>
+          <li><a href="/galeri" class="<%= path === '/galeri' ? 'active' : '' %>">Galeri</a></li>
+          <li><a href="/berita" class="<%= path === '/berita' ? 'active' : '' %>">Berita</a></li>
+          <li><a href="/ekstra-list" class="<%= path === '/ekstra-list' ? 'active' : '' %>">Ekstrakurikuler</a></li>
+          <li><a href="/ppdb" class="<%= path === '/ppdb' ? 'active' : '' %>">PPDB</a></li>
+          <li><a href="/kontak" class="<%= path === '/kontak' ? 'active' : '' %>">Kontak</a></li>
+        </ul>
+      </nav>
+      <div class="mobile-toggle">
+        <i class="fas fa-bars"></i>
+      </div>
+    </div>
+  </header>

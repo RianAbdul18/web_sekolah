@@ -1,17 +1,46 @@
 <%- include('partials/header') %>
-<%- include('partials/hero', { title: 'Ekstrakurikuler' }) %>
 
-<section class="section">
+<section class="ekstra section">
   <div class="container">
-    <div class="grid-4">
-      <% ekstras.forEach(e => { %>
-        <a href="/ekstra/<%= e.id %>" class="item">
-          <img src="<%= e.foto %>" alt="<%= e.nama %>">
-          <h4><%= e.nama %></h4>
-        </a>
+    <h1 class="section-title">Ekstrakurikuler</h1>
+    
+    <p class="text-center mb-5">Kembangkan bakat dan minat siswa melalui berbagai kegiatan ekstrakurikuler</p>
+
+    <div class="row">
+      <% ekstra.filter(e => e.aktif).forEach(e => { %>
+        <div class="col-md-6 col-lg-4 mb-4">
+          <div class="card h-100">
+            <% if (e.foto) { %>
+              <img src="<%= e.foto %>" class="card-img-top" alt="<%= e.nama %>" style="height: 200px; object-fit: cover;">
+            <% } else { %>
+              <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
+                <i class="fas fa-image fa-3x text-muted"></i>
+              </div>
+            <% } %>
+            <div class="card-body d-flex flex-column">
+              <h3 class="card-title"><%= e.nama %></h3>
+              <p class="card-text flex-grow-1"><%= e.deskripsi %></p>
+              
+              <ul class="list-unstyled mt-3">
+                <li><strong>Jadwal:</strong> <%= e.jadwal %></li>
+                <li><strong>Pembina:</strong> <%= e.pembina %></li>
+              </ul>
+
+              <a href="/ekstra-detail/<%= e.id %>" class="btn btn-outline-primary mt-auto">Lihat Detail</a>
+            </div>
+          </div>
+        </div>
       <% }) %>
     </div>
   </div>
 </section>
 
 <%- include('partials/footer') %>
+
+<style>
+  .card { transition: transform 0.3s, box-shadow 0.3s; border: none; border-radius: 12px; overflow: hidden; }
+  .card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+  .card-title { font-size: 1.3rem; margin-bottom: 0.75rem; }
+  .btn-outline-primary { border-color: var(--secondary); color: var(--secondary); }
+  .btn-outline-primary:hover { background: var(--secondary); color: white; }
+</style>

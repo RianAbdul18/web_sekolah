@@ -12,10 +12,24 @@
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
-    "dotenv": "^16.0.0",
-    "ejs": "^3.1.8",
-    "express": "^4.18.2",
-    "express-session": "^1.17.3",
-    "mongoose": "^6.0.0"
-  }
+    "connect-mongo": "^5.1.0",
+    "csurf": "^1.11.0",
+    "dotenv": "^16.6.1",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "express-session": "^1.18.2",
+    "express-validator": "^7.3.0",
+    "helmet": "^8.1.0",
+    "mongoose": "^6.13.8",
+    "multer": "^2.0.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RianAbdul18/web_sekolah.git"
+  },
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/RianAbdul18/web_sekolah/issues"
+  },
+  "homepage": "https://github.com/RianAbdul18/web_sekolah#readme"
 }

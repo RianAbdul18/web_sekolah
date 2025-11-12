@@ -1,46 +1,84 @@
 <%- include('partials/header') %>
-<%- include('partials/hero', { title: 'Galeri Kegiatan' }) %>
 
-<section class="section">
+<section class="galeri section">
   <div class="container">
-    <p class="center">Dokumentasi kegiatan siswa dan prestasi sekolah</p>
-    
+    <h1 class="section-title">Galeri Kegiatan</h1>
+    <p class="text-center mb-5">Dokumentasi kegiatan siswa dan sekolah</p>
+
     <div class="gallery-grid">
-      <!-- FOTO 1 -->
-      <div class="gallery-item" onclick="openLightbox('/img/galeri1.jpg', 'Wisuda Kelas 9')">
-        <img src="/img/galeri1.jpg" alt="Wisuda">
-        <div class="overlay">Wisuda Kelas 9</div>
-      </div>
-      
-      <!-- FOTO 2–12 (COPY-PASTE 11 KALI) -->
-      <div class="gallery-item" onclick="openLightbox('/img/galeri2.jpg', 'Lomba MTQ')">
-        <img src="/img/galeri2.jpg" alt="MTQ">
-        <div class="overlay">Lomba MTQ</div>
-      </div>
-      
-      <!-- Tambah sampai 12 foto -->
+      <% 
+        const galeriImages = [];
+        for(let i=1; i<=12; i++) {
+          galeriImages.push(`/img/galeri/${i}.jpg`);
+        }
+      %>
+      <% galeriImages.forEach(img => { %>
+        <div class="gallery-item">
+          <a href="<%= img %>" data-lightbox="galeri" data-title="Kegiatan Sekolah">
+            <img src="<%= img %>" alt="Galeri" class="img-fluid">
+            <div class="overlay">
+              <i class="fas fa-search-plus"></i>
+            </div>
+          </a>
+        </div>
+      <% }) %>
     </div>
   </div>
 </section>
 
-<!-- LIGHTBOX -->
-<div id="lightbox" onclick="closeLightbox()">
-  <span class="close">×</span>
-  <img id="lightbox-img" src="" alt="">
-  <div id="caption"></div>
-</div>
-
-<div class="gallery-item" onclick="openLightbox('/img/galeri2.jpg', 'Lomba MTQ')">
-  <img src="/img/galeri2.jpg" alt="MTQ">
-  <div class="overlay">Lomba MTQ</div>
-</div>
-<div class="gallery-item" onclick="openLightbox('/img/galeri2.jpg', 'Lomba MTQ')">
-  <img src="/img/galeri2.jpg" alt="MTQ">
-  <div class="overlay">Lomba MTQ</div>
-</div>
-<div class="gallery-item" onclick="openLightbox('/img/galeri2.jpg', 'Lomba MTQ')">
-  <img src="/img/galeri2.jpg" alt="MTQ">
-  <div class="overlay">Lomba MTQ</div>
-</div>
-
 <%- include('partials/footer') %>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+
+<style>
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: all 0.3s;
+  }
+  
+  .gallery-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+  }
+  
+  .gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s;
+  }
+  
+  .gallery-item:hover img {
+    transform: scale(1.1);
+  }
+  
+  .overlay {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  
+  .gallery-item:hover .overlay {
+    opacity: 1;
+  }
+  
+  .overlay i {
+    color: white;
+    font-size: 2rem;
+  }
+</style>

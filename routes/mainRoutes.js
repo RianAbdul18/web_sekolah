@@ -1,21 +1,64 @@
 const express = require('express');
-const Data = require('../models/Data');
+const fs = require('fs');
+const path = require('path');
+const { body, validationResult } = require('express-validator');
+const Ppdb = require('../models/Ppdb');
 const router = express.Router();
 
-router.get('/', (req, res) => res.render('beranda', { title: 'Beranda' }));
-
-router.get('/profil', async (req, res) => {
-  const staff = await Data.find({ type: 'staff' });  // Ambil data staff dari DB
-  res.render('profil', { title: 'Profil', staff });
+// === HALAMAN UTAMA (BERANDA) ===
+router.get('/', (req, res) => {
+  try {
+    const dataPath = path.join(__dirname, '../data/home.json');
+    const data = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
+    res.render('beranda', { 
+      title: 'Beranda', 
+      data,
+      csrfToken: req.csrfToken()
+    });
+  } catch (err) {
+    console.error('Error reading home.json:', err);
+    res.status(500).render('beranda', { 
+      title: 'Beranda', 
+      data: { slider: [], sambutan: '', agenda: [] },
+      error: 'Gagal memuat data beranda'
+    });
+  }
 });
 
-router.get('/ekstrakurikuler', async (req, res) => {
-  const ekstra = await Data.find({ type: 'ekstra' });  // Ambil data ekstra dari DB
-  res.render('ekstrakurikuler', { title: 'Ekstrakurikuler', ekstra });
-});
+// === SIMPAN PPDB DENGAN VALIDASI ===
+router.post('/ppdb/save', [
+  body('nama').trim().notEmpty().withMessage('Nama wajib diisi'),
+  body('nisn').trim().isLength({ min: 10, max: 10 }).withMessage('NISN harus 10 digit'),
+  body('asal').trim().notEmpty().withMessage('Asal sekolah wajib diisi'),
+  body('alamat').trim().notEmpty().withMessage('Alamat wajib diisi'),
+  body('telp').trim().isMobilePhone('id-ID').withMessage('Nomor HP tidak valid'),
+], async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ 
+      success: false, 
+      error: errors.array()[0].msg 
+    });
+  }
 
-router.get('/galeri', (req, res) => res.render('galeri', { title: 'Galeri' }));
-router.get('/kurikulum', (req, res) => res.render('kurikulum', { title: 'Kurikulum' }));
-router.get('/ppdb', (req, res) => res.render('ppdb', { title: 'PPDB' }));
+  try {
+    const { nama, nisn, asal, alamat, telp } = req.body;
+    await Ppdb.create({
+      nama,
+      nisn,
+      asal,
+      alamat,
+      telp,
+      tanggal: new Date()
+    });
+    res.json({ success: true });
+  } catch (err) {
+    console.error('Error saving PPDB:', err);
+    res.status(500).json({ 
+      success: false, 
+      error: 'Gagal menyimpan data pendaftaran' 
+    });
+  }
+});
 
 module.exports = router;

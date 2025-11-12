@@ -1,81 +1,63 @@
 <%- include('partials/header') %>
-<%- include('partials/hero', { title: 'PPDB Online 2025/2026' }) %>
 
-<section class="section">
+<section class="ppdb section">
   <div class="container">
-    <div class="ppdb-form">
-      <div class="progress-bar">
-        <div class="progress"></div>
-      </div>
-      <div class="steps">
-        <!-- SESI 1: DATA DIRI -->
-        <div class="step active">
-          <h3>1. Data Diri Calon Siswa</h3>
-          <input type="text" placeholder="Nama Lengkap *" data-name="nama" required>
-          <input type="text" placeholder="NISN" data-name="nisn">
-          <input type="text" placeholder="NIK" data-name="nik" required>
-          <select data-name="jenis_kelamin" required>
-            <option value="">Jenis Kelamin *</option>
-            <option>Laki-laki</option>
-            <option>Perempuan</option>
-          </select>
-          <input type="text" placeholder="Tempat Lahir *" data-name="tempat_lahir" required>
-          <input type="date" placeholder="Tanggal Lahir *" data-name="tgl_lahir" required>
-          <button type="button" class="btn next">Selanjutnya →</button>
-        </div>
-
-        <!-- SESI 2: ALAMAT -->
-        <div class="step">
-          <h3>2. Alamat Lengkap</h3>
-          <textarea placeholder="Alamat Rumah *" data-name="alamat" required></textarea>
-          <input type="text" placeholder="RT / RW" data-name="rt_rw">
-          <input type="text" placeholder="Desa / Kelurahan *" data-name="desa" required>
-          <input type="text" placeholder="Kecamatan *" data-name="kecamatan" required>
-          <input type="text" placeholder="Kabupaten / Kota *" data-name="kabupaten" required>
-          <button type="button" class="btn prev">← Kembali</button>
-          <button type="button" class="btn next">Selanjutnya →</button>
-        </div>
-
-        <!-- SESI 3: ORANG TUA -->
-        <div class="step">
-          <h3>3. Data Orang Tua / Wali</h3>
-          <input type="text" placeholder="Nama Ayah *" data-name="nama_ayah" required>
-          <input type="text" placeholder="Nama Ibu *" data-name="nama_ibu" required>
-          <input type="text" placeholder="Pekerjaan Ayah" data-name="pekerjaan_ayah">
-          <input type="text" placeholder="Pekerjaan Ibu" data-name="pekerjaan_ibu">
-          <input type="text" placeholder="No. WA Ortu *" data-name="wa_ortu" required>
-          <button type="button" class="btn prev">← Kembali</button>
-          <button type="button" class="btn next">Selanjutnya →</button>
-        </div>
-
-        <!-- SESI 4: ASAL SEKOLAH -->
-        <div class="step">
-          <h3>4. Asal Sekolah</h3>
-          <input type="text" placeholder="Nama SD / MI *" data-name="asal_sekolah" required>
-          <input type="text" placeholder="Alamat SD / MI" data-name="alamat_sekolah">
-          <button type="button" class="btn prev">← Kembali</button>
-          <button type="button" class="btn next">Selanjutnya →</button>
-        </div>
-
-        <!-- SESI 5: DOKUMEN -->
-        <div class="step">
-          <h3>5. Unggah Dokumen (Opsional)</h3>
-          <p><em>Foto / scan bisa dikirim via WA nanti</em></p>
-          <button type="button" class="btn prev">← Kembali</button>
-          <button type="button" class="btn next">Selanjutnya →</button>
-        </div>
-
-        <!-- SESI 6: KIRIM -->
-        <div class="step">
-          <h3>6. Kirim Pendaftaran</h3>
-          <div class="review"></div>
-          <button type="button" class="btn prev">← Kembali</button>
-          <button type="button" class="btn kirim">Kirim via WhatsApp</button>
-          <p id="notif"></p>
-        </div>
+    <h1 class="section-title">Pendaftaran Peserta Didik Baru (PPDB)</h1>
+    
+    <div class="ppdb-info">
+      <div class="alert alert-info">
+        <strong>PPDB Tahun Ajaran 2025/2026 Dibuka!</strong><br>
+        Silakan isi formulir di bawah ini. Data akan otomatis tersimpan dan dikirim via WhatsApp.
       </div>
     </div>
+
+    <form id="ppdbForm" class="ppdb-form" novalidate>
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+      
+      <div class="form-group">
+        <label for="nama">Nama Lengkap *</label>
+        <input type="text" id="nama" data-name="nama" placeholder="Masukkan nama lengkap" required minlength="3">
+      </div>
+
+      <div class="form-group">
+        <label for="nisn">NISN (10 digit) *</label>
+        <input type="text" id="nisn" data-name="nisn" placeholder="Contoh: 1234567890" required pattern="\d{10}" maxlength="10">
+      </div>
+
+      <div class="form-group">
+        <label for="asal">Asal Sekolah *</label>
+        <input type="text" id="asal" data-name="asal" placeholder="Nama sekolah asal" required>
+      </div>
+
+      <div class="form-group">
+        <label for="alamat">Alamat Lengkap *</label>
+        <textarea id="alamat" data-name="alamat" rows="3" placeholder="Jalan, RT/RW, Kelurahan, Kecamatan" required></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="telp">No. HP (WhatsApp) *</label>
+        <input type="tel" id="telp" data-name="telp" placeholder="08xxxxxxxxxx" required pattern="\d{10,13}">
+      </div>
+
+      <button type="button" class="kirim btn-primary">Kirim via WhatsApp</button>
+      <div id="notif" class="notif"></div>
+    </form>
   </div>
 </section>
 
 <%- include('partials/footer') %>
+
+<script src="/js/ppdb.js"></script>
+
+<style>
+  .ppdb-form { max-width: 600px; margin: 0 auto; }
+  .form-group { margin-bottom: 1.5rem; }
+  .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; }
+  .form-group input, .form-group textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 1rem; }
+  .form-group input:focus, .form-group textarea:focus { outline: none; border-color: var(--secondary); box-shadow: 0 0 0 3px rgba(52,152,219,0.2); }
+  .btn-primary { background: #27ae60; color: white; padding: 12px 24px; border: none; border-radius: 6px; font-size: 1.1rem; cursor: pointer; }
+  .btn-primary:hover { background: #219653; }
+  .btn-primary:disabled { background: #95a5a6; cursor: not-allowed; }
+  .notif { margin-top: 1rem; padding: 12px; border-radius: 6px; font-weight: 500; }
+  .alert-info { background: #d1ecf1; color: #0c5460; padding: 16px; border-radius: 8px; border: 1px solid #b6d4fe; }
+</style>

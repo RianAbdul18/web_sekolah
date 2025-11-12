@@ -1,10 +1,136 @@
-<%- include('../partials/header') %>
-<h2><%= action === 'create' ? 'Tambah' : 'Edit' %> Submenu</h2>
-<form method="POST" action="<%= action === 'create' ? '/admin/create' : '/admin/update/' + profil._id %>">
-  <input type="text" name="nama" placeholder="Nama Submenu" value="<%= profil ? profil.nama : '' %>" required>
-  <input type="text" name="tipe" placeholder="Tipe (e.g. staff)" value="<%= profil ? profil.tipe : '' %>" required>
-  <textarea name="isi" placeholder="Isi Lengkap"><%= profil ? profil.isi : '' %></textarea>
-  <input type="text" name="foto" placeholder="Path Foto" value="<%= profil ? profil.foto : '' %>">
-  <button type="submit">Simpan</button>
-</form>
-<%- include('../partials/footer') %>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title><%= action === 'create' ? 'Tambah' : 'Edit' %> Data Profil</title>
+  <link rel="stylesheet" href="/css/admin.css" />
+  <meta name="robots" content="noindex, nofollow" />
+</head>
+<body>
+  <div class="admin-container">
+    <div class="admin-header">
+      <h1><%= action === 'create' ? 'Tambah Data Baru' : 'Edit Data Profil' %></h1>
+      <p><a href="/admin/dashboard">Kembali ke Dashboard</a></p>
+    </div>
+
+    <% if (error) { %>
+      <div class="alert alert-danger"><%= error %></div>
+    <% } %>
+
+    <form 
+      action="/admin/<%= action === 'create' ? 'create' : 'update/' + profil._id %>" 
+      method="POST" 
+      enctype="multipart/form-data" 
+      novalidate
+    >
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
+      <div class="form-group">
+        <label for="nama">Nama *</label>
+        <input 
+          type="text" 
+          id="nama"
+          name="nama" 
+          value="<%= profil ? profil.nama : '' %>" 
+          placeholder="Contoh: Kepala Sekolah"
+          required 
+          minlength="3"
+          maxlength="100"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="deskripsi">Deskripsi Singkat *</label>
+        <textarea 
+          id="deskripsi"
+          name="deskripsi" 
+          rows="3" 
+          placeholder="Deskripsi singkat untuk ditampilkan di halaman" 
+          required
+        ><%= profil ? profil.deskripsi : '' %></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="isi">Isi Lengkap (Opsional)</label>
+        <textarea 
+          id="isi"
+          name="isi" 
+          rows="8" 
+          placeholder="Isi lengkap untuk halaman detail"
+        ><%= profil ? profil.isi : '' %></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="foto">Foto (Maks 5MB)</label>
+        <input 
+          type="file" 
+          id="foto"
+          name="foto" 
+          accept="image/jpeg,image/png,image/webp"
+        />
+        <% if (profil && profil.foto) { %>
+          <div style="margin-top: 10px;">
+            <img src="<%= profil.foto %>" alt="Foto saat ini" width="150" style="border-radius: 8px;">
+            <p><em>Foto saat ini</em></p>
+          </div>
+        <% } %>
+        <small class="text-muted">Format: JPG, PNG, WebP. Maksimal 5MB.</small>
+      </div>
+
+      <div class="form-group">
+        <label for="urutan">Urutan Tampil</label>
+        <input 
+          type="number" 
+          id="urutan"
+          name="urutan" 
+          value="<%= profil ? profil.urutan : 0 %>" 
+          min="0" 
+          step="1"
+        />
+        <small class="text-muted">Angka kecil muncul lebih atas</small>
+      </div>
+
+      <div class="form-group">
+        <label for="tipe">Tipe Data *</label>
+        <select id="tipe" name="tipe" required>
+          <option value="">-- Pilih Tipe --</option>
+          <option value="sekolah" <%= profil && profil.tipe === 'sekolah' ? 'selected' : '' %>>Sekolah</option>
+          <option value="sejarah" <%= profil && profil.tipe === 'sejarah' ? 'selected' : '' %>>Sejarah</option>
+          <option value="visi-misi" <%= profil && profil.tipe === 'visi-misi' ? 'selected' : '' %>>Visi Misi</option>
+          <option value="staff" <%= profil && profil.tipe === 'staff' ? 'selected' : '' %>>Staff</option>
+          <option value="tenaga-kependidikan" <%= profil && profil.tipe === 'tenaga-kependidikan' ? 'selected' : '' %>>Tenaga Kependidikan</option>
+          <option value="fasilitas" <%= profil && profil.tipe === 'fasilitas' ? 'selected' : '' %>>Fasilitas</option>
+        </select>
+      </div>
+
+      <div style="margin-top: 20px;">
+        <button type="submit" class="btn">Simpan Data</button>
+        <a href="/admin/dashboard" class="btn" style="background: #95a5a6; margin-left: 10px;">Batal</a>
+      </div>
+    </form>
+  </div>
+
+  <style>
+    .text-muted { color: #7f8c8d; font-size: 13px; }
+    textarea { resize: vertical; }
+  </style>
+
+  <script>
+    // Client-side file validation
+    document.getElementById('foto').addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (file) {
+        if (file.size > 5 * 1024 * 1024) {
+          alert('Ukuran file maksimal 5MB');
+          e.target.value = '';
+        }
+        if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type)) {
+          alert('Hanya file JPG, PNG, atau WebP');
+          e.target.value = '';
+        }
+      }
+    });
+  </script>
+</body>
+</html>

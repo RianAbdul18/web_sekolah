@@ -1,113 +1,91 @@
 <%- include('partials/header') %>
+<%- include('partials/hero') %>
 
-<!-- SLIDER -->
-<div class="slider">
-  <% data.slider.forEach(img => { %>
-    <img src="<%= img %>" alt="Slide">
-  <% }) %>
-</div>
-
-<!-- SAMBUTAN -->
-<section class="sambutan">
+<!-- Sambutan Kepala Sekolah -->
+<section class="sambutan section">
   <div class="container">
-    <img src="<%= data.sambutan.foto %>" alt="Kepsek">
-    <div>
-      <h3>Sambutan Kepala Sekolah</h3>
-      <h4><%= data.sambutan.nama %></h4>
-      <p><%= data.sambutan.pesan %></p>
-      <a href="#" class="btn">Selengkapnya</a>
-    </div>
-    <div class="statistik">
-      <div><h2>20</h2><p>GURU & STAF</p></div>
-      <div><h2>120</h2><p>SISWA</p></div>
-      <div><h2>7</h2><p>ROMBEL</p></div>
+    <div class="row">
+      <div class="col-md-8">
+        <h2 class="section-title">Sambutan Kepala Sekolah</h2>
+        <h4><%= data.sambutan.judul %></h4>
+        <p><%= data.sambutan.isi %></p>
+        <p><strong><%= data.sambutan.nama %></strong></p>
+      </div>
+      <div class="col-md-4 text-center">
+        <% if (data.sambutan.foto) { %>
+          <img src="<%= data.sambutan.foto %>" alt="Kepala Sekolah" class="img-fluid rounded-circle" style="width: 200px; height: 200px; object-fit: cover;">
+        <% } %>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- AGENDA -->
-<section class="section agenda">
-    <div class="container">
-      <h3>Agenda</h3>
-      <p>Agenda kegiatan dan aktivitas yang disesuaikan dengan kalender pendidikan</p>
-      <a href="#" class="btn">Selengkapnya</a>
-      <div class="cards">
-        <% data.agenda.forEach(a => { %>
-          <div class="card">
-            <h4><%= a.judul %></h4>
-            <p>Tahun Pelajaran 2025/2026</p>
-            <p><%= a.tanggal %></p>
+<!-- Agenda Terbaru -->
+<section class="agenda section bg-light">
+  <div class="container">
+    <h2 class="section-title">Agenda Sekolah</h2>
+    <div class="row">
+      <% data.agenda.filter(a => a.aktif).slice(0, 3).forEach(a => { %>
+        <div class="col-md-4 mb-4">
+          <div class="card h-100">
+            <div class="card-body">
+              <h5 class="card-title"><%= a.kegiatan %></h5>
+              <p class="card-text">
+                <small class="text-muted">
+                  <i class="fas fa-calendar"></i> <%= new Date(a.tanggal).toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) %>
+                </small><br>
+                <% if (a.lokasi) { %>
+                  <small class="text-muted"><i class="fas fa-map-marker-alt"></i> <%= a.lokasi %></small>
+                <% } %>
+              </p>
+            </div>
           </div>
-        <% }) %>
-      </div>
+        </div>
+      <% }) %>
     </div>
-  </section>
+  </div>
+</section>
 
-<!-- STAFF PENGAJAR -->
-<section class="section">
-    <div class="container">
-      <h3>Staf Pengajar</h3>
-      <p>Tenaga pendidik profesional dan berdedikasi tinggi</p>
-      <a href="/profil/staff" class="btn">Selengkapnya</a>
-      <div class="grid-4">
-        <% data.staff.forEach(s => { %>
-          <div class="item">
-            <img src="<%= s.foto %>" alt="<%= s.nama %>">
-            <h4><%= s.nama %></h4>
-            <p><%= s.mapel %></p>
-          </div>
-        <% }) %>
+<!-- Statistik Sekolah -->
+<section class="statistik section">
+  <div class="container">
+    <h2 class="section-title">Statistik Sekolah</h2>
+    <div class="row text-center">
+      <div class="col-6 col-md-3">
+        <div class="stat-box">
+          <h3><%= data.statistik.siswa %></h3>
+          <p>Siswa</p>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="stat-box">
+          <h3><%= data.statistik.guru %></h3>
+          <p>Guru</p>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="stat-box">
+          <h3><%= data.statistik.kelas %></h3>
+          <p>Kelas</p>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="stat-box">
+          <h3><%= data.statistik.ekskul %></h3>
+          <p>Ekskul</p>
+        </div>
       </div>
     </div>
-  </section>
-  
-  <!-- BERITA & FASILITAS & EKSTRA -->
-  <section class="section">
-    <div class="container">
-      <h3>Berita & Informasi</h3>
-      <p>Kegiatan terbaru dan prestasi siswa</p>
-      <a href="/berita" class="btn">Selengkapnya</a>
-      <div class="grid-4">
-        <% data.berita.forEach(b => { %>
-          <div class="item">
-            <img src="<%= b.foto %>" alt="<%= b.judul %>">
-            <h4><%= b.judul %></h4>
-          </div>
-        <% }) %>
-      </div>
-    </div>
-  </section>
-  
-  <section class="section">
-    <div class="container">
-      <h3>Fasilitas Sekolah</h3>
-      <p>Sarana penunjang pembelajaran yang lengkap</p>
-      <a href="/profil/fasilitas" class="btn">Selengkapnya</a>
-      <div class="grid-4">
-        <% data.fasilitas.forEach(f => { %>
-          <div class="item">
-            <img src="<%= f.foto %>" alt="<%= f.nama %>">
-            <h4><%= f.nama %></h4>
-          </div>
-        <% }) %>
-      </div>
-    </div>
-  </section>
-  
-  <section class="section">
-    <div class="container">
-      <h3>Ekstrakurikuler</h3>
-      <p>Kegiatan pengembangan bakat dan minat siswa</p>
-      <a href="/ekstra" class="btn">Selengkapnya</a>
-      <div class="grid-4">
-        <% data.ekstra.forEach(e => { %>
-          <div class="item">
-            <img src="<%= e.foto %>" alt="<%= e.nama %>">
-            <h4><%= e.nama %></h4>
-          </div>
-        <% }) %>
-      </div>
-    </div>
-  </section>
-  
+  </div>
+</section>
+
 <%- include('partials/footer') %>
+
+<style>
+  .section { padding: 60px 0; }
+  .section-title { text-align: center; margin-bottom: 40px; position: relative; }
+  .section-title::after { content: ''; display: block; width: 60px; height: 3px; background: #3498db; margin: 10px auto; }
+  .stat-box h3 { font-size: 2.5rem; font-weight: bold; color: #3498db; }
+  .stat-box p { margin: 0; color: #7f8c8d; }
+  .bg-light { background: #f8f9fa; }
+</style>

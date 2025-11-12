@@ -1,16 +1,73 @@
 <%- include('partials/header') %>
-<%- include('partials/hero', { title: ekstra.nama }) %>
 
-<section class="section">
+<section class="ekstra-detail section">
   <div class="container">
-    <div class="ekstra-content">
-      <img src="<%= ekstra.foto %>" alt="<%= ekstra.nama %>" class="ekstra-foto">
-      <div class="ekstra-text">
-        <p><%= ekstra.deskripsi %></p>
-        <a href="/ekstra" class="btn">Lihat Semua Ekstrakurikuler</a>
+    <div class="row">
+      <div class="col-lg-8">
+        <h1 class="section-title"><%= ekstra.nama %></h1>
+        
+        <div class="ekstra-content">
+          <p class="lead"><%= ekstra.deskripsi %></p>
+          
+          <div class="ekstra-info">
+            <ul class="list-group">
+              <li class="list-group-item">
+                <strong>Jadwal Kegiatan:</strong> <%= ekstra.jadwal %>
+              </li>
+              <li class="list-group-item">
+                <strong>Pembina:</strong> <%= ekstra.pembina %>
+              </li>
+              <li class="list-group-item">
+                <strong>Status:</strong> 
+                <span class="badge <%= ekstra.aktif ? 'badge-success' : 'badge-secondary' %>">
+                  <%= ekstra.aktif ? 'Aktif' : 'Tidak Aktif' %>
+                </span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="mt-4">
+            <a href="/ekstra-list" class="btn btn-outline-secondary">
+              Kembali ke Daftar Ekstrakurikuler
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4">
+        <div class="ekstra-image">
+          <% if (ekstra.foto) { %>
+            <img src="<%= ekstra.foto %>" alt="<%= ekstra.nama %>" class="img-fluid rounded shadow">
+          <% } else { %>
+            <div class="placeholder-img bg-light d-flex align-items-center justify-content-center rounded shadow">
+              <i class="fas fa-image fa-4x text-muted"></i>
+            </div>
+          <% } %>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
 <%- include('partials/footer') %>
+
+<style>
+  .ekstra-info .list-group-item {
+    border: none;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #eee;
+  }
+  .ekstra-info .list-group-item:last-child {
+    border-bottom: none;
+  }
+  .badge-success { background: #27ae60; color: white; }
+  .badge-secondary { background: #95a5a6; color: white; }
+  .placeholder-img {
+    height: 300px;
+    border: 2px dashed #ddd;
+  }
+  .ekstra-image img {
+    max-height: 400px;
+    object-fit: cover;
+  }
+</style>

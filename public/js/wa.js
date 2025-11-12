@@ -10,7 +10,7 @@ document.getElementById('formWa').addEventListener('submit', function(e) {
                `*Email:* ${email || 'Tidak diisi'}%0A%0A` +
                `*Pesan:*%0A${pesan}`;
   
-  const noWa = "085453220024";
+  const noWa = "085973781774";
   const url = `https://wa.me/${noWa}?text=${teks}`;
   
   // Kirim & notif

@@ -1,4 +1,94 @@
 <%- include('partials/header') %>
-<h1>Kurikulum</h1>
-<p>Deskripsi kurikulum dummy.</p>
+
+<section class="kurikulum section">
+  <div class="container">
+    <h1 class="section-title">Kurikulum</h1>
+    
+    <div class="curriculum-intro text-center mb-5">
+      <p class="lead">
+        Menggabungkan <strong>Kurikulum 2013</strong> dan <strong>Kurikulum Merdeka</strong> 
+        untuk menciptakan pembelajaran yang bermakna dan berpusat pada siswa.
+      </p>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 mb-4">
+        <div class="curriculum-card">
+          <div class="card-header bg-primary text-white">
+            <h3>Kurikulum 2013</h3>
+          </div>
+          <div class="card-body">
+            <ul>
+              <li>Pembelajaran berbasis kompetensi</li>
+              <li>Penguatan karakter (PPK)</li>
+              <li>Literasi dan numerasi</li>
+              <li>Projek Penguatan Profil Pelajar Pancasila</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 mb-4">
+        <div class="curriculum-card">
+          <div class="card-header bg-success text-white">
+            <h3>Kurikulum Merdeka</h3>
+          </div>
+          <div class="card-body">
+            <ul>
+              <li>Fleksibilitas pembelajaran</li>
+              <li>Projek berbasis tema</li>
+              <li>Pengembangan soft skills</li>
+              <li>Diferensiasi pembelajaran</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center mt-5">
+      <a href="/ppdb" class="btn btn-lg btn-primary">Daftar Sekarang</a>
+    </div>
+  </div>
+</section>
+
 <%- include('partials/footer') %>
+
+<style>
+  .curriculum-card {
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    height: 100%;
+  }
+  
+  .card-header {
+    padding: 1.5rem;
+    text-align: center;
+  }
+  
+  .card-header h3 {
+    margin: 0;
+    font-size: 1.5rem;
+  }
+  
+  .card-body {
+    padding: 1.5rem;
+  }
+  
+  .card-body ul {
+    padding-left: 1.2rem;
+  }
+  
+  .card-body li {
+    margin-bottom: 0.75rem;
+    position: relative;
+  }
+  
+  .card-body li::before {
+    content: "✓";
+    color: #27ae60;
+    font-weight: bold;
+    position: absolute;
+    left: -1.2rem;
+  }
+</style>

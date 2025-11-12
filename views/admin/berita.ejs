@@ -1,0 +1,17 @@
+<%- include('../partials/header') %>
+<h2>Kelola Berita</h2>
+<form action="/admin/berita/create" method="POST">
+  <input type="text" name="judul" placeholder="Judul" required>
+  <textarea name="isi" placeholder="Isi berita" required></textarea>
+  <button type="submit">Tambah</button>
+</form>
+<ul>
+  <% berita.forEach(b => { %>
+    <li>
+      <%= b.judul %> - <%= b.tanggal.toLocaleDateString() %>
+      <form action="/admin/berita/delete/<%= b._id %>" method="POST" style="display:inline;">
+        <button type="submit">Hapus</button>
+      </form>
+    </li>
+  <% }) %>
+</ul>

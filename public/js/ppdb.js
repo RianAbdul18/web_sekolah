@@ -1,60 +1,99 @@
-const steps = document.querySelectorAll('.step');
-const progress = document.querySelector('.progress');
-let current = 0;
+// public/js/ppdb.js
+document.addEventListener('DOMContentLoaded', function () {
+  const form = document.querySelector('form');
+  const kirimBtn = document.querySelector('.kirim');
+  const notif = document.getElementById('notif');
 
-function showStep(n) {
-  steps.forEach(s => s.classList.remove('active'));
-  steps[n].classList.add('active');
-  progress.style.width = `${(n + 1) * 16.66}%`;
-}
+  if (!kirimBtn || !form) return;
 
-document.querySelectorAll('.next').forEach(btn => {
-  btn.onclick = () => {
-    if (validateStep(current)) {
-      current++;
-      showStep(current);
+  kirimBtn.addEventListener('click', async function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    // Reset notif
+    notif.innerHTML = '';
+    notif.className = 'notif';
+
+    // Ambil data
+    const data = {};
+    let hasError = false;
+
+    form.querySelectorAll('[data-name]').forEach(field => {
+      const name = field.dataset.name;
+      const value = field.value.trim();
+      const label = field.closest('.form-group')?.querySelector('label')?.textContent || name;
+
+      // Validasi client-side
+      if (!value) {
+        showError(`${label} wajib diisi`);
+        hasError = true;
+        return;
+      }
+
+      if (name === 'nisn' && value.length !== 10) {
+        showError('NISN harus 10 digit');
+        hasError = true;
+        return;
+      }
+
+      if (name === 'telp' && !/^\d{10,13}$/.test(value)) {
+        showError('Nomor HP harus 10-13 digit');
+        hasError = true;
+        return;
+      }
+
+      data[name] = value;
+    });
+
+    if (hasError) return;
+
+    // Disable tombol
+    kirimBtn.disabled = true;
+    kirimBtn.textContent = 'Menyimpan...';
+
+    try {
+      const res = await fetch('/ppdb/save', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
+        },
+        body: JSON.stringify(data)
+      });
+
+      const result = await res.json();
+
+      if (result.success) {
+        // Format WhatsApp
+        const teks = `*PENDAFTARAN PPDB MTS DARUL FALAH*\n\n` +
+          `Nama: ${data.nama}\n` +
+          `NISN: ${data.nisn}\n` +
+          `Asal Sekolah: ${data.asal}\n` +
+          `Alamat: ${data.alamat}\n` +
+          `No. HP: ${data.telp}\n\n` +
+          `_Pendaftaran telah diterima. Kami akan menghubungi secepatnya._`;
+
+        const waUrl = `https://wa.me/6285453220024?text=${encodeURIComponent(teks)}`;
+        window.open(waUrl, '_blank');
+
+        notif.innerHTML = `
+          <div style="color: green; font-weight: bold;">
+            Pendaftaran berhasil! WhatsApp terbuka.
+          </div>`;
+        form.reset();
+      } else {
+        showError(result.error || 'Gagal menyimpan data');
+      }
+    } catch (err) {
+      console.error('PPDB Error:', err);
+      showError('Koneksi gagal. Coba lagi.');
+    } finally {
+      kirimBtn.disabled = false;
+      kirimBtn.textContent = 'Kirim via WhatsApp';
     }
-  };
-});
-
-document.querySelectorAll('.prev').forEach(btn => {
-  btn.onclick = () => {
-    current--;
-    showStep(current);
-  };
-});
-
-function validateStep(n) {
-  const inputs = steps[n].querySelectorAll('[required]');
-  for (let input of inputs) {
-    if (!input.value.trim()) {
-      alert('Harap isi semua kolom bertanda *');
-      return false;
-    }
-  }
-  return true;
-}
-
-// KIRIM KE WA
-document.querySelector('.kirim').onclick = () => {
-  const data = {};
-  document.querySelectorAll('[data-name]').forEach(el => {
-    data[el.dataset.name] = el.value;
   });
 
-  const teks = `*PPDB MTs DARUL FALAH*%0A%0A` +
-    `*1. DATA DIRI*%0A` +
-    `Nama: ${data.nama}%0ANISN: ${data.nisn}%0ANIK: ${data.nik}%0A` +
-    `JK: ${data.jenis_kelamin}%0ATempat, Tgl Lahir: ${data.tempat_lahir}, ${data.tgl_lahir}%0A%0A` +
-    `*2. ALAMAT*%0A${data.alamat}%0ART/RW: ${data.rt_rw}%0A${data.desa}, ${data.kecamatan}, ${data.kabupaten}%0A%0A` +
-    `*3. ORANG TUA*%0A` +
-    `Ayah: ${data.nama_ayah} (${data.pekerjaan_ayah})%0A` +
-    `Ibu: ${data.nama_ibu} (${data.pekerjaan_ibu})%0A` +
-    `WA Ortu: ${data.wa_ortu}%0A%0A` +
-    `*4. ASAL SEKOLAH*%0A${data.asal_sekolah}%0A%0A` +
-    `Terima kasih! Mohon konfirmasi via WA.`;
-
-  const url = `https://wa.me/085453220024?text=${teks}`;
-  window.open(url, '_blank');
-  document.getElementById('notif').innerHTML = "Pendaftaran berhasil! WhatsApp terbuka";
-};
+  function showError(msg) {
+    notif.innerHTML = `<div style="color: red; font-weight: bold;">${msg}</div>`;
+  }
+});

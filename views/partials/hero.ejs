@@ -1,5 +1,34 @@
-<div class="hero-title">
-    <div class="container">
-      <h1><%= title %></h1>
-    </div>
+<section class="hero-slider">
+  <div class="slider-container">
+    <% 
+      const activeSlides = data.slider.filter(s => s.aktif);
+      activeSlides.forEach((s, i) => { 
+        const bgImage = s.gambar ? s.gambar : '/img/default-slider.jpg';
+    %>
+      <div class="slide <%= i === 0 ? 'active' : '' %>" style="background-image: url('<%= bgImage %>')">
+        <div class="slide-overlay"></div>
+        <div class="slide-content">
+          <h1><%= s.judul %></h1>
+          <p><%= s.subjudul %></p>
+          <% if (s.link) { %>
+            <a href="<%= s.link %>" class="btn-primary">Selengkapnya</a>
+          <% } %>
+        </div>
+      </div>
+    <% }) %>
   </div>
+
+  <!-- Navigation -->
+  <% if (activeSlides.length > 1) { %>
+    <button class="slider-prev">&lt;</button>
+    <button class="slider-next">&gt;</button>
+
+    <div class="slider-dots">
+      <% activeSlides.forEach((s, i) => { %>
+        <span class="dot <%= i === 0 ? 'active' : '' %>" data-slide="<%= i %>"></span>
+      <% }) %>
+    </div>
+  <% } %>
+</section>
+
+<script src="/js/slider.js"></script>
