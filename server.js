@@ -18,8 +18,6 @@ app.use(helmet({
 app.disable('x-powered-by');
 
 // === SESSION ===
-
-
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
@@ -37,6 +35,15 @@ app.use(session({
 
 // === CSRF PROTECTION ===
 const csrfProtection = csrf({ cookie: false });
+app.use(csrfProtection);
+
+// === KIRIM CSRF TOKEN & PATH KE SEMUA VIEW ===
+app.use((req, res, next) => {
+  res.locals.csrfToken = req.csrfToken();
+  res.locals.path = req.path;
+  res.locals.user = req.session.user || null;
+  next();
+});
 
 // === DATABASE ===
 mongoose.connect(process.env.MONGO_URI, {
@@ -89,7 +96,10 @@ app.use((err, req, res, next) => {
 
 // === 404 HANDLER ===
 app.use((req, res) => {
-  res.status(404).render('404', { title: 'Halaman Tidak Ditemukan' });
+  res.status(404).render('404', { 
+    title: 'Halaman Tidak Ditemukan',
+    path: req.path 
+  });
 });
 
 const PORT = process.env.PORT || 3001;

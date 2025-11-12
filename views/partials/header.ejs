@@ -27,9 +27,9 @@
       </div>
       <nav class="main-nav">
         <ul>
-          <li><a href="/" class="<%= path === '/' ? 'active' : '' %>">Beranda</a></li>
+          <li><a href="/" class="<%= locals.path === '/' ? 'active' : '' %>">Beranda</a></li>
           <li class="dropdown">
-            <a href="/profil-sekolah" class="<%= path && path.includes('profil') ? 'active' : '' %>">Profil</a>
+            <a href="/profil-sekolah" class="<%= locals.path && locals.path.includes('profil') ? 'active' : '' %>">Profil</a>
             <ul class="dropdown-menu">
               <li><a href="/profil-sekolah">Profil Sekolah</a></li>
               <li><a href="/profil-sejarah">Sejarah</a></li>
@@ -39,11 +39,11 @@
               <li><a href="/profil-fasilitas">Fasilitas</a></li>
             </ul>
           </li>
-          <li><a href="/galeri" class="<%= path === '/galeri' ? 'active' : '' %>">Galeri</a></li>
-          <li><a href="/berita" class="<%= path === '/berita' ? 'active' : '' %>">Berita</a></li>
-          <li><a href="/ekstra-list" class="<%= path === '/ekstra-list' ? 'active' : '' %>">Ekstrakurikuler</a></li>
-          <li><a href="/ppdb" class="<%= path === '/ppdb' ? 'active' : '' %>">PPDB</a></li>
-          <li><a href="/kontak" class="<%= path === '/kontak' ? 'active' : '' %>">Kontak</a></li>
+          <li><a href="/galeri" class="<%= locals.path === '/galeri' ? 'active' : '' %>">Galeri</a></li>
+          <li><a href="/berita" class="<%= locals.path === '/berita' ? 'active' : '' %>">Berita</a></li>
+          <li><a href="/ekstra-list" class="<%= locals.path === '/ekstra-list' ? 'active' : '' %>">Ekstrakurikuler</a></li>
+          <li><a href="/ppdb" class="<%= locals.path === '/ppdb' ? 'active' : '' %>">PPDB</a></li>
+          <li><a href="/kontak" class="<%= locals.path === '/kontak' ? 'active' : '' %>">Kontak</a></li>
         </ul>
       </nav>
       <div class="mobile-toggle">
